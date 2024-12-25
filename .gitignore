@@ -1,0 +1,42 @@
+# Terraform files
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+*.tfvars.json
+*.tfstate
+*.terraform.lock.hcl
+
+# AWS credentials (if stored locally)
+.aws/credentials
+.aws/config
+
+# Local environment files
+.env
+
+# IDE-specific files (for common IDEs)
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# MacOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Python, if you're using it for Lambda or local testing
+__pycache__/
+*.pyc
+*.pyo
+
+# Node.js dependencies (if using for Lambda)
+node_modules/
