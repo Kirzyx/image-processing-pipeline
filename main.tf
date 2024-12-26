@@ -166,3 +166,23 @@ resource "aws_lambda_function" "placeholder_lambda" {
     filename = "LambdaFunction.zip"
     handler = "lambda_function.lambda_handler"
 }
+
+resource "aws_lambda_permission" "allow_bucket" {
+    statement_id = "AllowExecution"
+    action = "lambda:InvokeFunction"
+    function_name = aws_lambda_function.placeholder_lambda.arn
+    principal = "s3.amazonaws.com"
+    source_arn = aws_s3_bucket.raw_images.arn
+}
+
+# Notification to trigger lambda function when object is uploaded to S3 bucket
+resource "aws_s3_bucket_notification" "raw_image_upload" {
+    bucket = aws_s3_bucket.raw_images.id
+    
+    lambda_function {
+        lambda_function_arn = aws_lambda_function.placeholder_lambda.arn
+        events = ["s3:ObjectCreated:*"]
+    }
+
+    depends_on = [aws_lambda_permission.allow_bucket]
+}
